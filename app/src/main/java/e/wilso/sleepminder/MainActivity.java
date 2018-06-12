@@ -30,7 +30,6 @@ import e.wilso.sleepminder.support.NightListAdapter;
 public class MainActivity extends AppCompatActivity {
 
    private String TAG = "MainActivity";
-
    //MyApplication myApplication = MyApplication.getinstance(this);
    MyApplication myApplication = MyApplication.getMainInstance(this);
    private NightListAdapter nightListAdapter;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View v) {
             if (myApplication.recorder.isRunning()) {
-
                // Stop the tracking service
                RecordingService.instance.stopSelf();
                synchronizeStartButtonState(false);
@@ -72,9 +70,7 @@ public class MainActivity extends AppCompatActivity {
                Hooks.bind(Hooks.RECORDING_LIST_UPDATE, new Callable<Integer>() {
                   @Override
                   public Integer call() throws Exception {
-
                      MainActivity.this.updateNightList();
-
                      return 1;
                   }
                });
@@ -102,24 +98,20 @@ public class MainActivity extends AppCompatActivity {
 
    /**
     * Synchronizes the start/stop button image with the current recorder state
-    *
     * @param running Decides whether to show the play or stop icon
     */
    private void synchronizeStartButtonState(boolean running) {
-      ImageView button = (ImageView) findViewById(R.id.toggleRecording);
-      if (running) {
-         button.setImageResource(R.drawable.ic_action_stop);
-      }
-      else {
-         button.setImageResource(R.drawable.ic_action_play);
-      }
+      ImageView button = findViewById(R.id.toggleRecording);
+
+      if (running) button.setImageResource(R.drawable.ic_action_stop);
+      else button.setImageResource(R.drawable.ic_action_play);
    }
 
    private void setupNightList() {
       ArrayList<File> nights = new ArrayList<>(Arrays.asList(FileHandler.listFiles()));
       nightListAdapter = new NightListAdapter(this, android.R.layout.simple_list_item_1, nights);
 
-      final ListView listView = (ListView) findViewById(R.id.nights_list);
+      final ListView listView = findViewById(R.id.nights_list);
       listView.setAdapter(nightListAdapter);
 
       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -19,14 +19,14 @@ public class MyApplication extends android.app.Application {
    public MyApplication(Context ctx) {
       this.context = ctx;
       this.recorder = new Recorder();
-      this.str = "Fuck you";
+      this.str = "The same application!!!!!!!!!!";
       //Log.e(TAG, "Main: " + recorder + context);
 
    }
 
    // Singleton設計
    public static MyApplication getInstance() {
-      Log.e(TAG, "getInstance: " + str + "  " + context + " " + recorder);
+      //Log.e(TAG, "getInstance: " + str + "  " + context + " " + recorder);
       return myApplication;
    }
 
@@ -35,18 +35,15 @@ public class MyApplication extends android.app.Application {
       if(myApplication == null) {
          myApplication = new MyApplication(ctx);
       }
-      Log.e(TAG, "getMainInstance: " + str + "  " + context + " " + recorder);
+      //Log.e(TAG, "getMainInstance: " + str + "  " + context + " " + recorder);
 
       return myApplication;
    }
 
    /*@Override
-   public void onCreate()
-   {
+   public void onCreate() {
       super.onCreate();
-
       context = this;
-
       recorder = new Recorder();
    }*/
 }

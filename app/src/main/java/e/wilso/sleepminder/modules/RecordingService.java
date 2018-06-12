@@ -32,12 +32,11 @@ public class RecordingService extends Service {
    public IBinder onBind(Intent intent) {
       return null;
    }
+
    @Override
    public int onStartCommand(Intent intent, int flags, int startId) {
-
       // Show the "we are tracking" notification
       startForeground(ONGOING_NOTIFICATION_ID, getNotification());
-
       // Start the tracker
       myApplication.recorder.start(myApplication.context, new FileHandler());
 
@@ -63,11 +62,10 @@ public class RecordingService extends Service {
       stackBuilder.addParentStack(MainActivity.class);
       // Adds the Intent that starts the Activity to the top of the stack
       stackBuilder.addNextIntent(resultIntent);
-      PendingIntent resultPendingIntent =
-              stackBuilder.getPendingIntent(
-                      0,
-                      PendingIntent.FLAG_UPDATE_CURRENT
-              );
+      PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
+              0,
+              PendingIntent.FLAG_UPDATE_CURRENT);
+
       mBuilder.setContentIntent(resultPendingIntent);
 
       mBuilder.setProgress(0,0,true);
@@ -79,8 +77,7 @@ public class RecordingService extends Service {
               this,
               0,
               resultIntent,
-              PendingIntent.FLAG_UPDATE_CURRENT
-      );
+              PendingIntent.FLAG_UPDATE_CURRENT);
 
       mBuilder.addAction(R.drawable.ic_action_stop,"Stop tracking", stopTrackingIntent);
 

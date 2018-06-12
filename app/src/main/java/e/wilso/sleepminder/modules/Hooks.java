@@ -23,15 +23,12 @@ public class Hooks {
    }
 
    public static void remove(int key) {
-      if(hooks.containsKey(key)) {
-         hooks.remove(key);
-      }
+      if(hooks.containsKey(key)) hooks.remove(key);
    }
 
    public static void call(int key) {
-      if(!hooks.containsKey(key)) {
-         return;
-      }
+      if(!hooks.containsKey(key)) return;
+
       List<Callable<Integer>> list = hooks.get(key);
       if(list != null) {
          for(int i = 0; i < list.size(); ++i) {
