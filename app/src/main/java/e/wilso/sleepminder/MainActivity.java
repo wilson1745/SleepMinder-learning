@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
       if(!isExternalStorageWritable()) {
          new AlertDialog.Builder(this)
                  .setTitle("Caution")
-                 .setMessage("The storage is not accessable. Please make sure to insert your sd-card and restart the app.")
+                 .setMessage("The storage is not accessible. Please make sure to insert your sd-card and restart the app.")
                  .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -84,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
                synchronizeStartButtonState(true);
                Snackbar.make(findViewById(R.id.main_layout), R.string.recording_started, Snackbar.LENGTH_LONG).show();
             }
+         }
+      });
+
+      findViewById(R.id.start_test).setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            MainActivity.this.startActivity(new Intent(MainActivity.this, AudioTester.class));
          }
       });
    }

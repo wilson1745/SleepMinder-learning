@@ -19,21 +19,17 @@ public class NoiseModel {
    }
 
    public void addRMS(Double rms) {
-      if(RMS.size() >= 100) {
-         RMS.remove(0);
-      }
+      if(RMS.size() >= 100) RMS.remove(0);
       RMS.add(rms);
    }
+
    public void addRLH(Double rlh) {
-      if(RLH.size() >= 100) {
-         RLH.remove(0);
-      }
+      if(RLH.size() >= 100) RLH.remove(0);
       RLH.add(rlh);
    }
+
    public void addVAR(Double var) {
-      if(VAR.size() >= 100) {
-         VAR.remove(0);
-      }
+      if(VAR.size() >= 100) VAR.remove(0);
       VAR.add(var);
    }
 
@@ -51,19 +47,25 @@ public class NoiseModel {
 
    public double getNormalizedVAR() {
       if(VAR.size() <= 1) return 0d;
+
       return (VAR.get(VAR.size()-1) - mean(VAR)) / std(VAR);
    }
 
    public double getLastRMS() {
       if(RMS.size() <= 1) return 0d;
+
       return RMS.get(RMS.size()-1);
    }
+
    public double getLastVAR() {
       if(VAR.size() <= 1) return 0d;
+
       return VAR.get(VAR.size()-1);
    }
+
    public double getLastRLH() {
       if(RLH.size() <= 1) return 0d;
+
       return RLH.get(RLH.size()-1);
    }
 
@@ -85,7 +87,8 @@ public class NoiseModel {
             snore++;
             Log.e("event","snore");
          }
-      } else {
+      }
+      else {
          if(getLastRMS() > 15 && getNormalizedVAR() > 0.5d && (getLastRLH() > 1d || getLastRLH() < -1d)) {
             movement++;
             Log.e("event","movement");
@@ -95,38 +98,38 @@ public class NoiseModel {
 
    private double mean(List<Double> list) {
       double sum = 0;
-      for (int i = 0; i < list.size(); i++) {
+
+      for(int i = 0; i < list.size(); i++) {
          sum += list.get(i);
       }
+
       return sum / list.size();
    }
 
    private double std(List<Double> list) {
       double mean = mean(list);
       double var = 0;
+
       for(int i = 0; i < list.size(); i++) {
          var += Math.pow(list.get(i) - mean,2);
       }
+
       return Math.sqrt(var / list.size());
    }
 
    public int getEvent() {
-      if(snore > 5) {
-         return 1;
-      } else {
-         if(movement > 1) {
-            return 2;
-         }
+      if(snore > 5) return 1;
+      else {
+         if(movement > 1) return 2;
       }
+
       return 0;
    }
 
    public int getIntensity() {
-      if(getEvent() == 1) {
-         return snore;
-      } else if(getEvent() == 2) {
-         return movement;
-      }
+      if(getEvent() == 1) return snore;
+      else if(getEvent() == 2) return movement;
+
       return 0;
    }
 
